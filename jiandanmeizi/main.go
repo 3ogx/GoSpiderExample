@@ -31,7 +31,7 @@ var (
 	}
 
 	// 要抓哪一种
-	Which = 2
+	Which = 1
 
 	url     = "http://jandan.net/" + types[Which]
 	urlpage = "http://jandan.net/" + types[Which] + "/page-%d"
@@ -42,7 +42,7 @@ var (
 	savehash = true
 
 	// 保存的地方
-	rootdir = "D:\\jindan\\jiandansum\\" + types[Which]
+	rootdir = "D:\\jiandan\\jiandansum\\" + types[Which]
 	// 根据页数分图片保存，不然图片太大了,我简称它hash（之前版本不是用page分而是hash）！
 	// 图片太大硬盘会爆！
 	hashdir = "D:\\jiandan\\jiandanpage\\" + types[Which]

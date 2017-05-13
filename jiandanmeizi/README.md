@@ -22,7 +22,7 @@ var (
 	savehash = true
 
 	// 保存的地方
-	rootdir = "D:\\jindan\\jiandansum\\" + types[Which]
+	rootdir = "D:\\jiandan\\jiandansum\\" + types[Which]
 	// 根据页数分图片保存，不然图片太大了,我简称它hash（之前版本不是用page分而是hash）！
 	// 图片太大硬盘会爆！
 	hashdir = "D:\\jiandan\\jiandanpage\\" + types[Which]
@@ -33,7 +33,7 @@ var (
 
 `saveroot`和`savehash`如果设置为真，那么会保存在相应的文件中
 
-如上面所设置，文件不会保存在`D:\\jindan\\jiandansum\\ooxx`，而是分散保存在`D:\\jiandan\\jiandanpage\\ooxx`文件夹下，按页数分。
+如上面所设置，文件不会保存在`D:\\jiandan\\jiandansum\\ooxx`，而是分散保存在`D:\\jiandan\\jiandanpage\\ooxx`文件夹下，按页数分。
 
 运行`go run main.go`
 
