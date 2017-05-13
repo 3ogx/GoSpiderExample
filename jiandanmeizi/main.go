@@ -10,6 +10,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License
 */
+//
+//  说明：保存图片而已，会自动去重！！！
+//
 package main
 
 import (
@@ -21,38 +24,44 @@ import (
 	"strings"
 )
 
+var (
+	types = map[int]string{
+		1: "ooxx", // 妹子图
+		2: "pic",  // 无聊图
+	}
+
+	// 要抓哪一种
+	Which = 2
+
+	url     = "http://jandan.net/" + types[Which]
+	urlpage = "http://jandan.net/" + types[Which] + "/page-%d"
+
+	// 保存在统一文件
+	saveroot = false
+	// 根据页数保存在很多文件夹下
+	savehash = true
+
+	// 保存的地方
+	rootdir = "D:\\jindan\\jiandansum\\" + types[Which]
+	// 根据页数分图片保存，不然图片太大了,我简称它hash（之前版本不是用page分而是hash）！
+	// 图片太大硬盘会爆！
+	hashdir = "D:\\jiandan\\jiandanpage\\" + types[Which]
+)
+
 func init() {
+	if savehash == false && saveroot == false {
+		fmt.Println("这种是不行的：savehash==false && saveroot==false！必须有一个为true")
+	}
 	// 设置日志和超时时间
 	spider.SetLogLevel("info")
 	// 有些图片好大！
 	spider.SetGlobalTimeout(100)
-}
-func main() {
-	// 单只爬虫，请耐心爬取好吗
-	url := "http://jandan.net/ooxx"
-	urlpage := "http://jandan.net/ooxx/page-%d"
-
-	// 保存的地方
-	// 最后干脆不要了，图片太多，全部分散到hash文件中
-	rootdir := "D:\\jiandan"
-
-	// hash图片，不然图片太大了
-	hashdir := "D:\\jiandanhash"
-	
-	// 图片太大硬盘会爆！
-
-	// 图片集中地
+	// 图片集中地大本营
 	util.MakeDir(rootdir)
+}
 
-	// 16份
-	dirs := []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"}
-	for _, i := range dirs {
-		util.MakeDir(hashdir + "/" + i)
-
-		// gif文件夹
-		util.MakeDir(hashdir + "/gif-" + i)
-	}
-
+// 单只爬虫，请耐心爬取好吗
+func main() {
 	// 初始化爬虫
 	client, _ := spider.NewSpider(nil)
 	// 随机UA
@@ -81,16 +90,21 @@ func main() {
 		spider.Log().Panic(e.Error())
 	}
 
+	// 页数知道后，建文件夹！！
+	for i := num; i > 2; i-- {
+		util.MakeDir(hashdir + "/" + util.IS(i))
+	}
+
 	// 循环抓取开始
 	for i := num; i > 2; i-- {
 		index := fmt.Sprintf(urlpage, i)
 		client.SetUrl(index)
 		data, e = client.Go()
 		if e != nil {
-			spider.Log().Errorf("page %s error:%s", index, e.Error())
+			spider.Log().Errorf("列表页 %s 抓取出错:%s", index, e.Error())
 			continue
 		}
-		spider.Log().Infof("index %s done!", index)
+		spider.Log().Infof("列表页 %s 完成!", index)
 		//util.SaveToFile(rootdir+"/"+util.ValidFileName(index)+".html", data)
 		doc, _ = query.QueryBytes(data)
 		doc.Find(".view_img_link").Each(func(num int, node *goquery.Selection) {
@@ -109,51 +123,48 @@ func main() {
 
 			// 后缀
 			houzui := temp[tempnum-1]
-
 			// 文件名
 			filename := util.Md5(imgurl) + "." + houzui
-
-			// 图片首字母
-			firstchar := string(filename[0])
-
 			// 大本营文件路径
 			filedir := rootdir + "/" + filename
+			// 页数分图
+			hashfiledir := hashdir + "/" + util.IS(i) + "/" + filename
 
-			// hash分图
-			var hashfiledir string
-			if houzui == "gif" {
-				hashfiledir = hashdir + "/gif-" + firstchar + "/" + filename
-			} else {
-				hashfiledir = hashdir + "/" + firstchar + "/" + filename
-			}
+			// 下面每次都会去扫描
 			// 大本营存在？
 			exist := util.FileExist(filedir)
-			
+
 			// hash存在？
 			exist2 := util.FileExist(hashfiledir)
-			
-			// hash不存在，大本营存在
-			if !exist2 && exist {
-				if !exist2 {
-					// 读出来
-					temp, e := util.ReadfromFile(filedir)
-					// 出错不管
-					if e != nil {
+
+			// 不保存hash且大本营存在
+			if !savehash && exist {
+				return
+			}
+			// 如果要保存hash
+			if savehash {
+				// hash不存在，大本营存在
+				if !exist2 && exist {
+					if !exist2 {
+						// 读出来
+						temp, e := util.ReadfromFile(filedir)
+						// 出错不管
+						if e != nil {
+							return
+						}
+						// 写，出错不管
+						util.SaveToFile(hashfiledir, temp)
 						return
 					}
-					// 写，出错不管
-					util.SaveToFile(hashfiledir, temp)
+					// spider.Log().Infof("image file %s exist", filedir)
 					return
 				}
-				// spider.Log().Infof("image file %s exist", filedir)
-				return
+				// hash存在
+				if exist2 {
+					return
+				}
 			}
-			
-			// hash存在
-			if exist2 {
-				return
-			}
-			
+
 			// 补充img url
 			if strings.HasPrefix(imgurl, "//") {
 				imgurl = "http:" + imgurl
@@ -163,19 +174,29 @@ func main() {
 			client.SetUrl(imgurl).SetRefer(index)
 			data, e = client.Go()
 			if e != nil {
-				spider.Log().Errorf("image page %s error:%s", imgurl, e.Error())
+				spider.Log().Errorf("抓取图片：%s 出错:%s", imgurl, e.Error())
 				return
 			}
 
-			//spider.Log().Infof("image page %s done!", imgurl)
+			spider.Log().Infof("抓取图片：%s 成功", imgurl)
 
-			// 大本营不再保存
-			// e = util.SaveToFile(filedir, data)
-			e = util.SaveToFile(hashfiledir, data)
-			if e != nil {
-				spider.Log().Errorf("image keep %s error:%s", hashfiledir, e.Error())
-			} else {
-				spider.Log().Infof("image save %s", hashfiledir)
+			// 大本营保存
+			if saveroot {
+				e = util.SaveToFile(filedir, data)
+				if e != nil {
+					spider.Log().Errorf("图片保存： %s 出错:%s", filedir, e.Error())
+				} else {
+					spider.Log().Infof("图片保存： %s", filedir)
+				}
+			}
+
+			if savehash {
+				e = util.SaveToFile(hashfiledir, data)
+				if e != nil {
+					spider.Log().Errorf("图片保存： %s 出错:%s", hashfiledir, e.Error())
+				} else {
+					spider.Log().Infof("图片保存： %s", hashfiledir)
+				}
 			}
 
 		})

@@ -1,9 +1,18 @@
 # 使用
+结果，总共抓取了56,961 篇文章
 
 1. cont.go编辑配置，`RootDir = "E:\\jiandan"`为数据目录
 2. 进main文件夹运行
 3. 数据保存在data和数据库中
 4. 重抓要删除Redis数据库和文件夹
+
+详细 说明见[http://www.lenggirl.com/spider/jiandan.html](http://www.lenggirl.com/spider/jiandan.html)
+
+已经封装了exe，小心开车。
+
+![](/doc/jiandan/redis.png)
+![](/doc/jiandan/file.png)
+![](/doc/jiandan/mysql.png)
 
 ```
 /*
