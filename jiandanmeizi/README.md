@@ -2,8 +2,7 @@
 
 网址类似于http://jandan.net/ooxx/page-3
 
-请看代码，只有一个文件!
-
+首先进行配置
 ```
 var (
 	types = map[int]string{
@@ -34,7 +33,7 @@ var (
 
 `saveroot`和`savehash`如果设置为真，那么会保存在相应的文件中
 
-如上面所设置，文件不会保存在`D:\\jiandan`，而是分散保存在`D:\\jiandanhash`文件夹下，按页数分。
+如上面所设置，文件不会保存在`D:\\jindan\\jiandansum\\ooxx`，而是分散保存在`D:\\jiandan\\jiandanpage\\ooxx`文件夹下，按页数分。
 
 运行`go run main.go`
 
