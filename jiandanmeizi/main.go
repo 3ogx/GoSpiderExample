@@ -91,12 +91,12 @@ func main() {
 	}
 
 	// 页数知道后，建文件夹！！
-	for i := num; i > 2; i-- {
+	for i := num; i >= 1; i-- {
 		util.MakeDir(hashdir + "/" + util.IS(i))
 	}
 
 	// 循环抓取开始
-	for i := num; i > 2; i-- {
+	for i := num; i >= 1; i-- {
 		index := fmt.Sprintf(urlpage, i)
 		client.SetUrl(index)
 		data, e = client.Go()
