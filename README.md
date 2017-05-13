@@ -12,6 +12,15 @@ go get -u -v github.com/hunterhug/GoSpiderExample
 2. [jiandan煎蛋项目爬妹子|无聊图](jiandanmeizi/README.md)，啥Redis都不用，准备好网速就行！
 3. [taobao抓取淘宝天猫商品页图片|任意网址也可以](taobao/README.md)，图片助手！
 
+exe工具下载见：[百度云盘]()
+
+如果你觉得项目帮助到你，欢迎请我喝杯咖啡
+
+微信
+![微信](https://raw.githubusercontent.com/hunterhug/hunterhug.github.io/master/static/jpg/wei.png)
+
+支付宝
+![支付宝](https://raw.githubusercontent.com/hunterhug/hunterhug.github.io/master/static/jpg/ali.png)
 
 ## 环境配置
 请查看[https://github.com/hunterhug/AmazonBigSpider/blob/master/china.md](https://github.com/hunterhug/AmazonBigSpider/blob/master/china.md)
