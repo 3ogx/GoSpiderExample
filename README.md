@@ -28,4 +28,10 @@ go get -u -v github.com/hunterhug/GoSpiderExample
 ![支付宝](https://raw.githubusercontent.com/hunterhug/hunterhug.github.io/master/static/jpg/ali.png)
 
 ## 环境配置
-请查看[https://github.com/hunterhug/AmazonBigSpider/blob/master/china.md](https://github.com/hunterhug/AmazonBigSpider/blob/master/china.md)
+安装GO环境
+
+安装MYSQL
+
+安装Reids
+
+请自行百度
