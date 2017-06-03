@@ -16,7 +16,9 @@ import (
 	"fmt"
 	"github.com/hunterhug/GoSpider/util"
 	"github.com/hunterhug/GoSpiderExample/zhihu"
+	"os"
 	"strings"
+	"time"
 )
 
 // 抓取一个问题的全部信息
@@ -56,7 +58,9 @@ func main() {
 	//}
 	haha, err := util.ReadfromFile("cookie.txt")
 	if err != nil {
-		panic("请您一定要保证cookie.txt存在：" + err.Error())
+		fmt.Println("请您一定要保证cookie.txt存在：" + err.Error())
+		time.Sleep(50 * time.Second)
+		os.Exit(0)
 	}
 	cookie := string(haha)
 	zhihu.Baba.SetHeaderParm("Cookie", strings.TrimSpace(cookie))
