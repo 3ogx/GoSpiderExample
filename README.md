@@ -16,8 +16,8 @@ go get -u -v github.com/hunterhug/GoSpiderExample
 2. [jiandan煎蛋项目爬妹子|无聊图](jiandanmeizi/README.md)，啥Redis都不用，准备好网速就行！
 3. [taobao抓取淘宝天猫商品页图片|任意网址也可以](taobao/README.md)，图片助手！
 4. [pedaily.cn投资界爬虫](pedaily/README.md),投资专用!
-5. [taobaoscrapy淘宝天猫搜索框商品千里寻踪],重构https://github.com/hunterhug/taobaoscrapy，可选抓取图片并保存信息到csv
-
+5. [taobaoscrapy淘宝天猫搜索框商品千里寻踪](taobaoscrapy/README.md),重构https://github.com/hunterhug/taobaoscrapy，可选抓取图片并保存信息到csv
+6. [zhihu知乎系列爬虫](zhihu/README.md)啥啥都有。
 直接点击exe即可运行，exe工具下载见：[百度云盘](http://pan.baidu.com/s/1gfgi9YN)
 
 如果你觉得项目帮助到你，欢迎请我喝杯咖啡
