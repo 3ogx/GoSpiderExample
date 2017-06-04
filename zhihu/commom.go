@@ -21,6 +21,7 @@ var (
 	QuestionUrl = "https://www.zhihu.com/question/%d"
 	PeopleUrl   = "https://www.zhihu.com/people/%s"
 	AnswerUrl   = "https://www.zhihu.com/question/%d/answer/%d"
+	CollectionUrl = "https://www.zhihu.com/collection/%d?page=%d"
 )
 
 func Input(say, defaults string) string {

@@ -17,7 +17,29 @@ go get -u -v github.com/hunterhug/GoSpiderExample
 3. [taobao抓取淘宝天猫商品页图片|任意网址也可以](taobao/README.md)，图片助手！
 4. [pedaily.cn投资界爬虫](pedaily/README.md),投资专用!
 5. [taobaoscrapy淘宝天猫搜索框商品千里寻踪](taobaoscrapy/README.md),重构https://github.com/hunterhug/taobaoscrapy，可选抓取图片并保存信息到csv
-6. [zhihu知乎系列爬虫](zhihu/README.md)啥啥都有。
+6. [zhihu知乎系列爬虫:按问题ID抓答案，按收藏夹批量抓答案](zhihu/README.md)啥啥都有。
+
+```
+	-----------------
+	知乎问题信息小助手
+	功能:
+	1. 抓取图片
+	2. 抓取答案
+
+	选项:
+	1. 从收藏夹https://www.zhihu.com/collection/78172986批量获取很多问题答案
+	2. 从问题https://www.zhihu.com/question/28853910批量获取一个问题很多答案
+
+	请您按提示操作（Enter）！答案保存在data文件夹下！
+
+	如果失效了请往exe同级目录cookie.txt
+	增加cookie
+
+	你亲爱的萌萌~
+	太阳萌飞了~~~
+	-----------------
+```
+
 直接点击exe即可运行，exe工具下载见：[百度云盘](http://pan.baidu.com/s/1gfgi9YN)
 
 如果你觉得项目帮助到你，欢迎请我喝杯咖啡

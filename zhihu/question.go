@@ -125,7 +125,7 @@ func StructA(body []byte) (*Answer, error) {
 }
 
 // 输出HTML
-func OutputHtml(answer DataInfo) (qid, aid int, who, html string) {
+func OutputHtml(answer DataInfo) (qid, aid int, title, who, html string) {
 	answer.Content = strings.Replace(answer.Content, "src", "xx", -1)
 	answer.Content = strings.Replace(answer.Content, "data-original", "src", -1)
 	b := `
@@ -175,7 +175,7 @@ func OutputHtml(answer DataInfo) (qid, aid int, who, html string) {
 		<br/>
 		`, purl, answer.Author.Name, sex, strings.Replace(answer.Author.Image, "{size}", "xll", -1), answer.Author.About, qurl, aurl, ct, ut)
 	content := fmt.Sprintf(b, answer.Question.Title, answer.Aid, about, answer.Content)
-	return answer.Question.Qid, answer.Aid, answer.Author.UrlToken, content
+	return answer.Question.Qid, answer.Aid, answer.Question.Title, answer.Author.UrlToken, content
 }
 
 func SavePicture(dir string, body []byte) {

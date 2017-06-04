@@ -31,7 +31,11 @@ func help() {
 	1. 抓取图片
 	2. 抓取答案
 
-	请您按提示操作（Enter）！
+	选项:
+	1. 从收藏夹https://www.zhihu.com/collection/78172986批量获取很多问题答案
+	2. 从问题https://www.zhihu.com/question/28853910批量获取一个问题很多答案
+
+	请您按提示操作（Enter）！答案保存在data文件夹下！
 
 	如果失效了请往exe同级目录cookie.txt
 	增加cookie
@@ -64,7 +68,13 @@ func main() {
 	}
 	cookie := string(haha)
 	zhihu.Baba.SetHeaderParm("Cookie", strings.TrimSpace(cookie))
-	Base()
+
+	choice := zhihu.Input("选择：从收藏夹获取选1，从问题获取选2(默认)", "2")
+	if choice == "1" {
+		Many()
+	} else {
+		Base()
+	}
 
 }
 
@@ -77,7 +87,7 @@ func Base() {
 
 		// 第一个答案
 		body, err := zhihu.CatchA(q, page)
-		fmt.Println("抓取第一个回答！")
+		fmt.Println("预抓取第一个回答！")
 		if err != nil {
 			fmt.Println("a" + err.Error())
 			continue
@@ -96,9 +106,11 @@ func Base() {
 		}
 
 		fmt.Println("开始处理答案:" + temp.Data[0].Excerpt)
-		qid, aid, who, html := zhihu.OutputHtml(temp.Data[0])
+		qid, aid, title, who, html := zhihu.OutputHtml(temp.Data[0])
+		fmt.Println("哦，这个问题是:" + title)
 		filename := fmt.Sprintf("data/%d/%s-%d/%s-%d的回答.html", qid, who, aid, who, aid)
 		util.MakeDirByFile(filename)
+		util.SaveToFile(fmt.Sprintf("data/%d-%s.xx", qid, util.ValidFileName(title)), []byte(""))
 
 		err = util.SaveToFile(filename, []byte(html))
 		if err == nil {
@@ -109,15 +121,15 @@ func Base() {
 		}
 		zhihu.SavePicture(fmt.Sprintf("data/%d/%s-%d", qid, who, aid), []byte(html))
 
-		all := zhihu.Input("批量抓取答案，默认N(Y/N)", "N")
+		all := util.ToLower(zhihu.Input("批量抓取答案，默认N(Y/N)", "N"))
 		for {
 			if temp.Page.IsEnd {
 				fmt.Println("回答已经结束！")
 				break
 			}
-			if strings.Contains(all, "N") {
-				yes := zhihu.Input("抓取下一个答案，默认Y(Y/N)", "Y")
-				if strings.Contains(yes, "N") {
+			if strings.Contains(all, "n") {
+				yes := util.ToLower(zhihu.Input("抓取下一个答案，默认Y(Y/N)", "Y"))
+				if strings.Contains(yes, "n") {
 					break
 				}
 			}
@@ -147,7 +159,7 @@ func Base() {
 			temp = temp1
 
 			fmt.Println("开始处理答案:" + temp.Data[0].Excerpt)
-			qid, aid, who, html := zhihu.OutputHtml(temp.Data[0])
+			qid, aid, _, who, html := zhihu.OutputHtml(temp.Data[0])
 			filename := fmt.Sprintf("data/%d/%s-%d/%s-%d的回答.html", qid, who, aid, who, aid)
 			util.MakeDirByFile(filename)
 
@@ -159,6 +171,132 @@ func Base() {
 				continue
 			}
 			zhihu.SavePicture(fmt.Sprintf("data/%d/%s-%d", qid, who, aid), []byte(html))
+		}
+	}
+}
+
+func Many() {
+	for {
+		collectids := zhihu.Input("请输入集合ID:", "78172986")
+		collectid, e := util.SI(collectids)
+		if e != nil {
+			fmt.Println("收藏夹ID错误")
+			continue
+		}
+
+		god := util.ToLower(zhihu.Input("开启上帝模式吗(一路抓到底)，默认N(Y/N)?", "N"))
+		skip := false
+		if strings.Contains(god, "y") {
+			skip = true
+		}
+		qids := zhihu.CatchAllCollection(collectid)
+		if len(qids) == 0 {
+			fmt.Println("收藏夹下没问题！")
+			continue
+		}
+		fmt.Printf("总计有%d个问题:\n", len(qids))
+		for _, id := range qids {
+			page := 1
+			q := zhihu.Q(id)
+			//fmt.Println(q)
+
+			// 第一个答案
+			body, err := zhihu.CatchA(q, page)
+			fmt.Println("预抓取第一个回答！")
+			if err != nil {
+				fmt.Println("a" + err.Error())
+				continue
+			}
+
+			temp, err := zhihu.StructA(body)
+			if err != nil {
+				fmt.Println("b" + err.Error())
+				s, _ := util.JsonBack(body)
+				fmt.Println(string(s))
+				continue
+			}
+			if len(temp.Data) == 0 {
+				fmt.Println("没有答案！")
+				continue
+			}
+
+			fmt.Println("开始处理答案:" + temp.Data[0].Excerpt)
+			qid, aid, title, who, html := zhihu.OutputHtml(temp.Data[0])
+			fmt.Println("哦，这个问题是:" + title)
+
+			if !skip {
+				tiaotiao := util.ToLower(zhihu.Input("跳过这个问题吗，默认N(Y/N)?", "N"))
+				if strings.Contains(tiaotiao, "y") {
+					continue
+				}
+			}
+			filename := fmt.Sprintf("data/%d/%s-%d/%s-%d的回答.html", qid, who, aid, who, aid)
+			util.MakeDirByFile(filename)
+			util.SaveToFile(fmt.Sprintf("data/%d-%s.xx", qid, util.ValidFileName(title)), []byte(""))
+
+			err = util.SaveToFile(filename, []byte(html))
+			if err == nil {
+				fmt.Println("保存答案成功:" + filename)
+			} else {
+				fmt.Println("保存答案失败:" + err.Error())
+				continue
+			}
+			zhihu.SavePicture(fmt.Sprintf("data/%d/%s-%d", qid, who, aid), []byte(html))
+
+			all := "y"
+			if !skip {
+				all = util.ToLower(zhihu.Input("批量抓取这个问题的所有答案，默认N(Y/N)", "N"))
+			}
+			for {
+				if temp.Page.IsEnd {
+					fmt.Println("回答已经结束！")
+					break
+				}
+				if strings.Contains(all, "n") {
+					yes := util.ToLower(zhihu.Input("抓取下一个答案，默认Y(Y/N)", "Y"))
+					if strings.Contains(yes, "n") {
+						break
+					}
+				}
+				//fmt.Println(temp.Page.NextUrl)
+				body, err = zhihu.CatchA(q, page+1)
+				if err != nil {
+					fmt.Println("抓取答案失败：" + err.Error())
+					continue
+				} else {
+					page = page + 1
+				}
+				//util.SaveToFile("data/question.json", body)
+
+				temp1, err := zhihu.StructA(body)
+				if err != nil {
+					fmt.Println(err.Error())
+					continue
+				}
+				if len(temp1.Data) == 0 {
+					fmt.Println("没有答案！")
+					s, _ := util.JsonBack(body)
+					fmt.Println(string(s))
+					continue
+				}
+
+				// 成功后再来
+				temp = temp1
+
+				fmt.Println("开始处理答案:" + temp.Data[0].Excerpt)
+				qid, aid, _, who, html := zhihu.OutputHtml(temp.Data[0])
+				filename := fmt.Sprintf("data/%d/%s-%d/%s-%d的回答.html", qid, who, aid, who, aid)
+				util.MakeDirByFile(filename)
+
+				err = util.SaveToFile(filename, []byte(html))
+				if err == nil {
+					fmt.Println("保存答案成功:" + filename)
+				} else {
+					fmt.Println("保存答案失败:", err.Error())
+					continue
+				}
+				zhihu.SavePicture(fmt.Sprintf("data/%d/%s-%d", qid, who, aid), []byte(html))
+			}
 		}
 	}
 }

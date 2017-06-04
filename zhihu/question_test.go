@@ -47,8 +47,8 @@ func TestOutputHtml(t *testing.T) {
 		fmt.Println(err.Error())
 	} else {
 		answer := temp.Data[0]
-		qid, aid, who, html := OutputHtml(answer)
-		fmt.Println(qid, aid, who)
+		qid, title, aid, who, html := OutputHtml(answer)
+		fmt.Println(qid, aid, who, title)
 		util.SaveToFile(filepath.Join(util.CurDir(), "../data/question.html"), []byte(html))
 	}
 
