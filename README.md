@@ -2,7 +2,7 @@
 
 这是一个示例的仓库，以前是用Python写爬虫，积累了一定经验后转成Golang，并发快，开发快，理解舒畅。
 
-## 使用
+## 一.使用
 
 1. 依赖[https://github.com/hunterhug/GoSpider](https://github.com/hunterhug/GoSpider)，请下载它到GOPATH
 2. 示例仅供学习，爬虫有风险，如果太暴力，会给别人带来损失，在此申明不承担相应责任。
@@ -17,7 +17,7 @@ go get -u -v github.com/hunterhug/GoSpiderExample
 
 如果下载过慢，请手动下载，包依赖有问题，请将https://github.com/hunterhug/GoSpider/tree/master/vendor 下的包移动到GOPATH
 
-## Example
+## 二.Example
 
 项目结构
 
@@ -34,7 +34,7 @@ go get -u -v github.com/hunterhug/GoSpiderExample
     --mian 入口
 ```
 
-### 1.万能图片助手
+### 1. 万能图片助手
 
 [taobao抓取淘宝天猫商品页图片|任意网址也可以](taobao/README.md)，万能图片助手！
 
@@ -55,7 +55,7 @@ go run taobao.go -config=taobao.csv
 taobao.exe -config=taobao.csv
 ```
 
-### 2.投资界助手
+### 2. 投资界助手
 
 [pedaily.cn投资界爬虫](pedaily/README.md),投资专用!
 
@@ -75,15 +75,15 @@ taobao.exe -config=taobao.csv
 2. companytouzi.go可通过公司代号查找一家机构的投资情况
 ```
 
-### 3.待写
+### 3. 淘宝天猫搜索框商品千里寻踪
 
 [taobaoscrapy淘宝天猫搜索框商品千里寻踪待做](taobaoscrapy/README.md),重构[Python版本](https://github.com/hunterhug/taobaoscrapy)可选抓取图片并保存信息到csv
 
-### 4.分布式煎蛋文章助手
+### 4. 分布式煎蛋文章助手
 
-[jiandan煎蛋项目爬文章](jiandan/README.md)，使用到redis，mysql，将网页数据保存在磁盘中，详情页解析后存入数据库。中级示例！
+[jiandan煎蛋项目爬文章](jiandan/README.md)
 
-多浏览器持久化cookie分布式爬虫爬取数据，将网页数据保存在磁盘中，详情页解析后存入数据库。中级示例！
+多浏览器持久化cookie分布式爬虫爬取数据，使用到redis，mysql，将网页数据保存在磁盘中，详情页解析后存入数据库。中级示例！
 
 结果，总共抓取了56,961 篇文章
 
@@ -96,13 +96,15 @@ taobao.exe -config=taobao.csv
 
 详细 说明见[http://www.lenggirl.com/spider/jiandan.html](http://www.lenggirl.com/spider/jiandan.html)
 
-### 5.煎蛋妹纸/无聊图片助手
+### 5. 煎蛋妹纸/无聊图片助手
 
 [jiandan煎蛋项目爬图片](jiandanmeizi/README.md)，啥Redis都不用，准备好网速就行！
 
-### 6.知乎小助手
+### 6. 知乎小助手
 
-[zhihu知乎系列爬虫:按问题ID抓答案，按收藏夹批量抓答案](zhihu/README.md)啥啥都有。
+[zhihu知乎系列爬虫](zhihu/README.md)啥啥都有。
+
+按问题ID抓答案，按收藏夹批量抓答案
 
 ```
 	-----------------
@@ -125,18 +127,20 @@ taobao.exe -config=taobao.csv
 	-----------------
 ```
 
-### 二进制文件下载
+## 三.EXE下载
 
 直接点击exe即可运行，exe工具下载见：[百度云盘](http://pan.baidu.com/s/1gfgi9YN)
 
-···
+```
 ooxx.exe为爬取煎蛋妹纸图
 wuliao.exe为爬取煎蛋无聊图
 
 taobao.exe为爬取天猫淘宝等网址图片，需编辑taoban.csv
 
 zhihu.exe为抓取知乎问题下的回答，包括图片
-···
+```
+
+# Tip
 
 如果你觉得项目帮助到你，欢迎请我喝杯咖啡
 
