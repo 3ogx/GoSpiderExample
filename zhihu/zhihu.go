@@ -42,6 +42,7 @@ func init() {
 		panic(err)
 	}
 	Baba = spiders
+	Baba.SetWaitTime(2)
 }
 
 func Login(email, password string) ([]byte, error) {
