@@ -21,6 +21,7 @@ import (
 	"time"
 )
 
+var Limit = 30 //限制回答个数
 // 抓取一个问题的全部信息
 
 func help() {
@@ -62,14 +63,28 @@ func main() {
 	//}
 	haha, err := util.ReadfromFile("cookie.txt")
 	if err != nil {
-		fmt.Println("请您一定要保证cookie.txt存在：" + err.Error())
+		fmt.Println("请您一定要保证cookie.txt存在哦：" + err.Error())
 		time.Sleep(50 * time.Second)
 		os.Exit(0)
 	}
 	cookie := string(haha)
 	zhihu.Baba.SetHeaderParm("Cookie", strings.TrimSpace(cookie))
 
-	choice := zhihu.Input("选择：从收藏夹获取选1，从问题获取选2(默认)", "2")
+	choice := zhihu.Input("萌萌：从收藏夹获取按1，从问题获取按2(默认)", "2")
+	for {
+		ll := zhihu.Input("萌萌说亲爱的，因为回答实在太多，请限制获取的回答个数:30（默认)", "30")
+		temp, errr := util.SI(ll)
+		if errr != nil {
+			fmt.Println("萌萌表示输入的应该是数字哦")
+			continue
+		}
+		if temp <= 0 || temp > 500 {
+			fmt.Println("萌萌表示不抓取，哼")
+			continue
+		}
+		Limit = temp
+		break
+	}
 	if choice == "1" {
 		Many()
 	} else {
@@ -81,7 +96,7 @@ func main() {
 func Base() {
 	for {
 		page := 1
-		id := zhihu.Input("请输入问题ID:", "28467579")
+		id := zhihu.Input("萌萌：请输入问题ID:", "28467579")
 		q := zhihu.Q(id)
 		//fmt.Println(q)
 
@@ -134,6 +149,10 @@ func Base() {
 				}
 			}
 			//fmt.Println(temp.Page.NextUrl)
+			if page+1 > Limit {
+				fmt.Println("萌萌：答案超出个数了哦，哦耶~")
+				break
+			}
 			body, err = zhihu.CatchA(q, page+1)
 			if err != nil {
 				fmt.Println("抓取答案失败：" + err.Error())
@@ -177,7 +196,7 @@ func Base() {
 
 func Many() {
 	for {
-		collectids := zhihu.Input("请输入集合ID:", "78172986")
+		collectids := zhihu.Input("萌萌：请输入集合ID:", "78172986")
 		collectid, e := util.SI(collectids)
 		if e != nil {
 			fmt.Println("收藏夹ID错误")
@@ -259,6 +278,10 @@ func Many() {
 					}
 				}
 				//fmt.Println(temp.Page.NextUrl)
+				if page+1 > Limit {
+					fmt.Println("萌萌：答案超出个数了哦，哦耶~")
+					break
+				}
 				body, err = zhihu.CatchA(q, page+1)
 				if err != nil {
 					fmt.Println("抓取答案失败：" + err.Error())
