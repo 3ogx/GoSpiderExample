@@ -128,6 +128,7 @@ func Base() {
 		util.SaveToFile(fmt.Sprintf("data/%d-%s.xx", qid, util.ValidFileName(title)), []byte(""))
 
 		err = util.SaveToFile(filename, []byte(html))
+		util.SaveToFile(fmt.Sprintf("data/%d/%d#%s-%d的回答.html", qid, page, who, aid), []byte(html))
 		if err == nil {
 			fmt.Println("保存答案成功:" + filename)
 		} else {
@@ -183,6 +184,7 @@ func Base() {
 			util.MakeDirByFile(filename)
 
 			err = util.SaveToFile(filename, []byte(html))
+			util.SaveToFile(fmt.Sprintf("data/%d/%d#%s-%d的回答.html", qid, page, who, aid), []byte(html))
 			if err == nil {
 				fmt.Println("保存答案成功:" + filename)
 			} else {
@@ -254,6 +256,7 @@ func Many() {
 			util.SaveToFile(fmt.Sprintf("data/%d-%s.xx", qid, util.ValidFileName(title)), []byte(""))
 
 			err = util.SaveToFile(filename, []byte(html))
+			util.SaveToFile(fmt.Sprintf("data/%d/%d#%s-%d的回答.html", qid, page, who, aid), []byte(html))
 			if err == nil {
 				fmt.Println("保存答案成功:" + filename)
 			} else {
@@ -312,6 +315,7 @@ func Many() {
 				util.MakeDirByFile(filename)
 
 				err = util.SaveToFile(filename, []byte(html))
+				util.SaveToFile(fmt.Sprintf("data/%d/%d#%s-%d的回答.html", qid, page, who, aid), []byte(html))
 				if err == nil {
 					fmt.Println("保存答案成功:" + filename)
 				} else {
