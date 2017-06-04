@@ -22,6 +22,8 @@ import (
 )
 
 var Limit = 30 //限制回答个数
+var Follow = false
+
 // 抓取一个问题的全部信息
 
 func help() {
@@ -31,6 +33,7 @@ func help() {
 	功能:
 	1. 抓取图片
 	2. 抓取答案
+	3. 可选关注小伙伴
 
 	选项:
 	1. 从收藏夹https://www.zhihu.com/collection/78172986批量获取很多问题答案
@@ -85,6 +88,10 @@ func main() {
 		Limit = temp
 		break
 	}
+	ff := util.ToLower(zhihu.Input("酱~关注下答案中的小姐姐/小哥哥吧，默认N（Y/N）", "n"))
+	if strings.Contains(ff, "y") {
+		Follow = true
+	}
 	if choice == "1" {
 		Many()
 	} else {
@@ -129,6 +136,9 @@ func Base() {
 
 		err = util.SaveToFile(filename, []byte(html))
 		util.SaveToFile(fmt.Sprintf("data/%d/%d#%s-%d的回答.html", qid, page, who, aid), []byte(html))
+		if Follow {
+			zhihu.Follow(who)
+		}
 		if err == nil {
 			fmt.Println("保存答案成功:" + filename)
 		} else {
@@ -185,6 +195,9 @@ func Base() {
 
 			err = util.SaveToFile(filename, []byte(html))
 			util.SaveToFile(fmt.Sprintf("data/%d/%d#%s-%d的回答.html", qid, page, who, aid), []byte(html))
+			if Follow {
+				zhihu.Follow(who)
+			}
 			if err == nil {
 				fmt.Println("保存答案成功:" + filename)
 			} else {
@@ -257,6 +270,9 @@ func Many() {
 
 			err = util.SaveToFile(filename, []byte(html))
 			util.SaveToFile(fmt.Sprintf("data/%d/%d#%s-%d的回答.html", qid, page, who, aid), []byte(html))
+			if Follow {
+				zhihu.Follow(who)
+			}
 			if err == nil {
 				fmt.Println("保存答案成功:" + filename)
 			} else {
@@ -316,6 +332,9 @@ func Many() {
 
 				err = util.SaveToFile(filename, []byte(html))
 				util.SaveToFile(fmt.Sprintf("data/%d/%d#%s-%d的回答.html", qid, page, who, aid), []byte(html))
+				if Follow {
+					zhihu.Follow(who)
+				}
 				if err == nil {
 					fmt.Println("保存答案成功:" + filename)
 				} else {

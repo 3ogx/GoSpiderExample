@@ -18,6 +18,7 @@ import (
 // 第一步：引入库
 )
 import (
+	"fmt"
 	"github.com/hunterhug/GoSpider/spider"
 	"github.com/hunterhug/GoSpider/util"
 	"strings"
@@ -60,4 +61,9 @@ func Login(email, password string) ([]byte, error) {
 		return []byte("网路错误..."), err
 	}
 	return util.JsonBack(body)
+}
+
+func Follow(who string) {
+	Baba.SetUrl(fmt.Sprintf("https://www.zhihu.com/api/v4/members/%s/followers", who))
+	Baba.Post()
 }
