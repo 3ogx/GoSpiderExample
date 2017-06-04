@@ -192,11 +192,11 @@ func SavePicture(dir string, body []byte) {
 				img, e = node.Attr("data-src")
 			}
 			if e && img != "" {
-				fmt.Println("原始文件：" + img)
+				//fmt.Println("原始文件：" + img)
 				temp := img
 				filename := util.ValidFileName(temp)
 				if util.FileExist(dir + "/" + filename) {
-					fmt.Println("文件存在：" + dir + "/" + filename)
+					//fmt.Println("文件存在：" + dir + "/" + filename)
 				} else {
 					//fmt.Println("下载:" + temp)
 					Baba.SetUrl(temp)
