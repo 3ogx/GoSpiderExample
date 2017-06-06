@@ -65,6 +65,6 @@ func Login(email, password string) ([]byte, error) {
 }
 
 func Follow(who string) {
-	Baba.SetUrl(fmt.Sprintf("https://www.zhihu.com/api/v4/members/%s/followers", who))
-	Baba.Post()
+	//Baba.SetUrl(fmt.Sprintf("https://www.zhihu.com/api/v4/members/%s/followers", who))
+	//Baba.Post()
 }
