@@ -134,24 +134,41 @@ func OutputHtml(answer DataInfo) (qid, aid int, title, who, html string) {
 		<head>
 		<meta charset="utf-8" />
 		<title>%s:%d</title>
-		</head>
 		<style>
 		body{
-		margin:20px 20%%
+		margin:20px 15%%
 		}
-		img {width:50%%;
+		img {width:60%%;
 		display:block;
 		text-align:center}
+
+		.link{
+		margin:20px;
+		height:10px
+		}
 		</style>
+		</head>
 		<body>
 		<div id="author">
 		%s
 		</div>
+		<div class="link">
+		###link###
+		</div>
+				<div>
+  跳页: <input type="number" id="page" min="1" max="500" value="3" style="width:100px">
+  <input type="submit" onclick="var a=document.getElementById('page').value;location.href=a+'.html' "></div>
 		<div id="answer">
 		<hr/>
 		正文:
 		%s
 		</div>
+		<div class="link">
+		###link###
+		</div>
+				<div>
+  跳页: <input type="number" id="page" min="1" max="500" value="3" style="width:100px">
+  <input type="submit" onclick="var a=document.getElementById('page').value;location.href=a+'.html' "></div>
 		</body>
 		</html>
 		`

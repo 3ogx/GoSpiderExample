@@ -18,7 +18,7 @@ import (
 // 第一步：引入库
 )
 import (
-	"fmt"
+	//"fmt"
 	"github.com/hunterhug/GoSpider/spider"
 	"github.com/hunterhug/GoSpider/util"
 	"strings"
@@ -42,7 +42,7 @@ func init() {
 		panic(err)
 	}
 	Baba = spiders
-	Baba.SetWaitTime(3)
+	Baba.SetWaitTime(2)
 }
 
 func Login(email, password string) ([]byte, error) {

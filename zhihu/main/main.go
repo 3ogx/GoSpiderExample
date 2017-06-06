@@ -88,7 +88,8 @@ func main() {
 		Limit = temp
 		break
 	}
-	ff := util.ToLower(zhihu.Input("酱~关注下答案中的小姐姐/小哥哥吧，默认N（Y/N）", "n"))
+	//ff := util.ToLower(zhihu.Input("酱~关注下答案中的小姐姐/小哥哥吧，默认N（Y/N）", "n"))
+	ff := "n"
 	if strings.Contains(ff, "y") {
 		Follow = true
 	}
@@ -133,9 +134,19 @@ func Base() {
 		filename := fmt.Sprintf("data/%d/%s-%d/%s-%d的回答.html", qid, who, aid, who, aid)
 		util.MakeDirByFile(filename)
 		util.SaveToFile(fmt.Sprintf("data/%d-%s.xx", qid, util.ValidFileName(title)), []byte(""))
-
 		err = util.SaveToFile(filename, []byte(html))
-		util.SaveToFile(fmt.Sprintf("data/%d/%d#%s-%d的回答.html", qid, page, who, aid), []byte(html))
+
+		// html
+		util.MakeDir(fmt.Sprintf("data/%d-html", qid))
+		link := ""
+		if page == 1 {
+			link = fmt.Sprintf(`<a href="%d.html" style="float:right">Next下一页</a>`, page+1)
+		} else {
+			link = fmt.Sprintf(`<a href="%d.html" style="float:left">Pre上一页</a><a href="%d.html" style="float:right">Next下一页</a>`, page-1, page+1)
+		}
+		html = strings.Replace(html, "###link###", link, -1)
+		util.SaveToFile(fmt.Sprintf("data/%d-html/%d.html", qid, page), []byte(html))
+
 		if Follow {
 			zhihu.Follow(who)
 		}
@@ -192,9 +203,18 @@ func Base() {
 			qid, aid, _, who, html := zhihu.OutputHtml(temp.Data[0])
 			filename := fmt.Sprintf("data/%d/%s-%d/%s-%d的回答.html", qid, who, aid, who, aid)
 			util.MakeDirByFile(filename)
-
 			err = util.SaveToFile(filename, []byte(html))
-			util.SaveToFile(fmt.Sprintf("data/%d/%d#%s-%d的回答.html", qid, page, who, aid), []byte(html))
+			// html
+			util.MakeDir(fmt.Sprintf("data/%d-html", qid))
+			link := ""
+			if page == 1 {
+				link = fmt.Sprintf(`<a href="%d.html" style="float:right">Next下一页</a>`, page+1)
+			} else {
+				link = fmt.Sprintf(`<a href="%d.html" style="float:left">Pre上一页</a><a href="%d.html" style="float:right">Next下一页</a>`, page-1, page+1)
+			}
+			html = strings.Replace(html, "###link###", link, -1)
+			util.SaveToFile(fmt.Sprintf("data/%d-html/%d.html", qid, page), []byte(html))
+
 			if Follow {
 				zhihu.Follow(who)
 			}
@@ -267,9 +287,18 @@ func Many() {
 			filename := fmt.Sprintf("data/%d/%s-%d/%s-%d的回答.html", qid, who, aid, who, aid)
 			util.MakeDirByFile(filename)
 			util.SaveToFile(fmt.Sprintf("data/%d-%s.xx", qid, util.ValidFileName(title)), []byte(""))
-
 			err = util.SaveToFile(filename, []byte(html))
-			util.SaveToFile(fmt.Sprintf("data/%d/%d#%s-%d的回答.html", qid, page, who, aid), []byte(html))
+			// html
+			util.MakeDir(fmt.Sprintf("data/%d-html", qid))
+			link := ""
+			if page == 1 {
+				link = fmt.Sprintf(`<a href="%d.html" style="float:right">Next下一页</a>`, page+1)
+			} else {
+				link = fmt.Sprintf(`<a href="%d.html" style="float:left">Pre上一页</a><a href="%d.html" style="float:right">Next下一页</a>`, page-1, page+1)
+			}
+			html = strings.Replace(html, "###link###", link, -1)
+			util.SaveToFile(fmt.Sprintf("data/%d-html/%d.html", qid, page), []byte(html))
+
 			if Follow {
 				zhihu.Follow(who)
 			}
@@ -329,9 +358,18 @@ func Many() {
 				qid, aid, _, who, html := zhihu.OutputHtml(temp.Data[0])
 				filename := fmt.Sprintf("data/%d/%s-%d/%s-%d的回答.html", qid, who, aid, who, aid)
 				util.MakeDirByFile(filename)
-
 				err = util.SaveToFile(filename, []byte(html))
-				util.SaveToFile(fmt.Sprintf("data/%d/%d#%s-%d的回答.html", qid, page, who, aid), []byte(html))
+				// html
+				util.MakeDir(fmt.Sprintf("data/%d-html", qid))
+				link := ""
+				if page == 1 {
+					link = fmt.Sprintf(`<a href="%d.html" style="float:right">Next下一页</a>`, page+1)
+				} else {
+					link = fmt.Sprintf(`<a href="%d.html" style="float:left">Pre上一页</a><a href="%d.html" style="float:right">Next下一页</a>`, page-1, page+1)
+				}
+				html = strings.Replace(html, "###link###", link, -1)
+				util.SaveToFile(fmt.Sprintf("data/%d-html/%d.html", qid, page), []byte(html))
+
 				if Follow {
 					zhihu.Follow(who)
 				}
