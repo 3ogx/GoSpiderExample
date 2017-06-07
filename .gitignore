@@ -30,3 +30,4 @@ taobao/image/
 data/*
 zhihu/main/data/*
 *.exe
+/cookie.txt

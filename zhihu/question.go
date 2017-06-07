@@ -127,7 +127,11 @@ func StructA(body []byte) (*Answer, error) {
 // 输出HTML
 func OutputHtml(answer DataInfo) (qid, aid int, title, who, html string) {
 	answer.Content = strings.Replace(answer.Content, "src", "xx", -1)
-	answer.Content = strings.Replace(answer.Content, "data-original", "src", -1)
+	if PublishToWeb {
+		answer.Content = strings.Replace(answer.Content, "data-original", "data-src", -1)
+	} else {
+		answer.Content = strings.Replace(answer.Content, "data-original", "src", -1)
+	}
 	b := `
 		<!DOCTYPE html>
 		<html>
@@ -147,6 +151,7 @@ func OutputHtml(answer DataInfo) (qid, aid int, title, who, html string) {
 		height:10px
 		}
 		</style>
+		%s
 		</head>
 		<body>
 		<div id="author">
@@ -184,14 +189,22 @@ func OutputHtml(answer DataInfo) (qid, aid int, title, who, html string) {
 	ut := time.Unix(int64(answer.UpdateTime), 0).Format("2006-01-02 03:04:05 PM")
 	about := fmt.Sprintf(`
 		名字:<a href="%s">%s</a> 性别:%s<br/>
-		<img src="%s" /><br/>
+		<img data-src="%s" width="400" height="500" /><br/>
 		介绍:%s<br/>
 		<a href="%s">问题</a><br/>
 		<a href="%s">答案</a>新建于:%s，更新于%s
 
 		<br/>
 		`, purl, answer.Author.Name, sex, strings.Replace(answer.Author.Image, "{size}", "xll", -1), answer.Author.About, qurl, aurl, ct, ut)
-	content := fmt.Sprintf(b, answer.Question.Title, answer.Aid, about, answer.Content)
+
+	if !PublishToWeb {
+		about = strings.Replace(about, "data-src", "src", -1)
+	}
+	JsScript := ""
+	if PublishToWeb {
+		JsScript = "<script type='application/ecmascript' async='' src='../" + JsName + "'></script>"
+	}
+	content := fmt.Sprintf(b, answer.Question.Title, answer.Aid, JsScript, about, answer.Content)
 	return answer.Question.Qid, answer.Aid, answer.Question.Title, answer.Author.UrlToken, content
 }
 

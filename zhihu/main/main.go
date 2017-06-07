@@ -41,6 +41,9 @@ func help() {
 
 	请您按提示操作（Enter）！答案保存在data文件夹下！
 
+	因为知乎防盗链，放在你的网站上是看不见图片的！
+	但是本地查看是没问题的！
+
 	如果失效了请往exe同级目录cookie.txt
 	增加cookie
 
@@ -49,6 +52,8 @@ func help() {
 	-----------------
 	`)
 }
+
+// 应该替换为本地照片！待做
 func main() {
 	help()
 	//u := zhihu.Input("请输入手机/邮箱:", "569929309@qq.com")
@@ -73,6 +78,12 @@ func main() {
 	cookie := string(haha)
 	zhihu.Baba.SetHeaderParm("Cookie", strings.TrimSpace(cookie))
 
+	js := strings.ToLower(zhihu.Input("萌萌：你要发布到自己的网站上吗(JS解决防盗链)Y/N(默认N)", "n"))
+	if strings.Contains(js, "y") {
+		zhihu.PublishToWeb = true
+		zhihu.InitJs()
+		util.SaveToFile("data/"+zhihu.JsName, []byte(zhihu.Js))
+	}
 	choice := zhihu.Input("萌萌：从收藏夹获取按1，从问题获取按2(默认)", "2")
 	for {
 		ll := zhihu.Input("萌萌说亲爱的，因为回答实在太多，请限制获取的回答个数:30（默认)", "30")
@@ -133,6 +144,9 @@ func Base() {
 		fmt.Println("哦，这个问题是:" + title)
 		filename := fmt.Sprintf("data/%d/%s-%d/%s-%d的回答.html", qid, who, aid, who, aid)
 		util.MakeDirByFile(filename)
+		if zhihu.PublishToWeb {
+			util.SaveToFile(fmt.Sprintf("data/%d/%s", qid, zhihu.JsName), []byte(zhihu.Js))
+		}
 		util.SaveToFile(fmt.Sprintf("data/%d-%s.xx", qid, util.ValidFileName(title)), []byte(""))
 		err = util.SaveToFile(filename, []byte(html))
 
@@ -286,6 +300,9 @@ func Many() {
 			}
 			filename := fmt.Sprintf("data/%d/%s-%d/%s-%d的回答.html", qid, who, aid, who, aid)
 			util.MakeDirByFile(filename)
+			if zhihu.PublishToWeb {
+				util.SaveToFile(fmt.Sprintf("data/%d/%s", qid, zhihu.JsName), []byte(zhihu.Js))
+			}
 			util.SaveToFile(fmt.Sprintf("data/%d-%s.xx", qid, util.ValidFileName(title)), []byte(""))
 			err = util.SaveToFile(filename, []byte(html))
 			// html
