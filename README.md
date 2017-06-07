@@ -102,7 +102,11 @@ taobao.exe -config=taobao.csv
 
 ### 6. 知乎小助手
 
-[zhihu知乎系列爬虫](zhihu/README.md)啥啥都有。
+[zhihu知乎系列爬虫](zhihu/README.md)啥啥都有。工具在[exe](https://github.com/hunterhug/GoSpiderExample/tree/master/zhihu/main)
+
+示例 [防盗链版本HTML](http://www.lenggirl.com/zhihu/28467579-html/1.html)
+
+cookie.txt请自带！
 
 按问题ID抓答案，按收藏夹批量抓答案
 
