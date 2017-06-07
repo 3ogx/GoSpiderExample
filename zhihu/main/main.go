@@ -31,7 +31,7 @@ func help() {
 	-----------------
 	知乎问题信息小助手
 	功能:
-	1. 抓取图片
+	1. 可选抓取图片
 	2. 抓取答案
 	3. 可选关注小伙伴
 
@@ -42,7 +42,7 @@ func help() {
 	请您按提示操作（Enter）！答案保存在data文件夹下！
 
 	因为知乎防盗链，放在你的网站上是看不见图片的！
-	但是本地查看是没问题的！
+	但是本地查看是没问题的！可选择防盗链生成HTML
 
 	如果失效了请往exe同级目录cookie.txt
 	增加cookie
@@ -83,6 +83,10 @@ func main() {
 		zhihu.PublishToWeb = true
 		zhihu.InitJs()
 		util.SaveToFile("data/"+zhihu.JsName, []byte(zhihu.Js))
+	}
+	tu := strings.ToLower(zhihu.Input("萌萌：要抓取图片吗Y/N(默认N)", "n"))
+	if strings.Contains(tu, "y") {
+		zhihu.CatchP = true
 	}
 	choice := zhihu.Input("萌萌：从收藏夹获取按1，从问题获取按2(默认)", "2")
 	for {

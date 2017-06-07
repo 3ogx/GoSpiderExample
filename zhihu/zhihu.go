@@ -26,11 +26,14 @@ import (
 
 var (
 	// 一只小爬虫
-	Baba         *spider.Spider
+	Baba *spider.Spider
 
 	// 知乎防盗链，要加一个js
 	PublishToWeb = false
-	Debug        = "info"
+
+	// 抓取图片？
+	CatchP = false
+	Debug  = "info"
 )
 
 func init() {

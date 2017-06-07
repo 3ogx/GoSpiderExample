@@ -209,6 +209,9 @@ func OutputHtml(answer DataInfo) (qid, aid int, title, who, html string) {
 }
 
 func SavePicture(dir string, body []byte) {
+	if !CatchP {
+		return
+	}
 	util.MakeDir(dir)
 	docm, err := query.QueryBytes(body)
 	if err != nil {
