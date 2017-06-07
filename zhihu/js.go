@@ -97,9 +97,9 @@ var hotlink = (function(view, document) {
 
 			frame.style.width = width + "px";
 			frame.style.height = height + "px";
-			//if(width==0){
+			if(width==0){
 				frame.style.width = "100%";
-			//}
+			}
 			//if(height==0 && height>=960){
 			if(height==0){
 				frame.style.height = "960px";
