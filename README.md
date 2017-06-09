@@ -100,7 +100,7 @@ taobao.exe -config=taobao.csv
 
 [jiandan煎蛋项目爬图片](jiandanmeizi/README.md)，啥Redis都不用，准备好网速就行！
 
-### 6. 知乎小助手
+### 6. 知乎小助手(已经移动到zhihuxx项目)
 
 [zhihu知乎系列爬虫](zhihu/README.md)啥啥都有。工具在[exe](https://github.com/hunterhug/GoSpiderExample/tree/master/zhihu/main)
 
