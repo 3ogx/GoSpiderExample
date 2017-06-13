@@ -7,8 +7,6 @@
 1. 依赖[https://github.com/hunterhug/GoSpider](https://github.com/hunterhug/GoSpider)，请下载它到GOPATH
 2. 示例仅供学习，爬虫有风险，如果太暴力，会给别人带来损失，在此申明不承担相应责任。
 
-本文 约定 `助手==爬虫`！
-
 下载：
 
 ```bash
@@ -27,11 +25,9 @@ go get -u -v github.com/hunterhug/GoSpiderExample
     --main 入口
 -- jiandanmeizi 煎蛋图片爬虫
     --main.go 简单
-
 -- pedaily 投资界爬虫
 -- taobao 万能图片助手(天猫淘宝额外处理)
 -- zhihu 知乎小助手
-    --mian 入口
 ```
 
 ### 1. 万能图片助手
@@ -77,7 +73,7 @@ taobao.exe -config=taobao.csv
 
 ### 3. 淘宝天猫搜索框商品千里寻踪
 
-[taobaoscrapy淘宝天猫搜索框商品千里寻踪待做](taobaoscrapy/README.md),重构[Python版本](https://github.com/hunterhug/taobaoscrapy)可选抓取图片并保存信息到csv
+[taobaoscrapy淘宝天猫搜索框商品千里寻踪待做](taobaoscrapy/README.md),重构[Python版本](https://github.com/hunterhug/taobaoscrapy)可选抓取图片并保存信息到csv，还没写。
 
 ### 4. 分布式煎蛋文章助手
 
@@ -102,11 +98,9 @@ taobao.exe -config=taobao.csv
 
 ### 6. 知乎小助手(已经移动到zhihuxx项目)
 
-[zhihu知乎系列爬虫](zhihu/README.md)啥啥都有。工具在[exe](https://github.com/hunterhug/GoSpiderExample/tree/master/zhihu/main)
+[zhihu知乎系列爬虫](https://github.com/hunterhug/zhihuxx)啥啥都有。
 
 示例 [防盗链版本HTML](http://www.lenggirl.com/zhihu/28467579-html/1.html)
-
-cookie.txt请自带！
 
 按问题ID抓答案，按收藏夹批量抓答案
 
@@ -144,8 +138,6 @@ n
 萌萌说亲爱的，因为回答实在太多，请限制获取的回答个数:30（默认)
 3
 萌萌：请输入问题ID:
-
-
 ```
 
 ## 三.EXE下载
@@ -155,9 +147,7 @@ n
 ```
 ooxx.exe为爬取煎蛋妹纸图
 wuliao.exe为爬取煎蛋无聊图
-
 taobao.exe为爬取天猫淘宝等网址图片，需编辑taoban.csv
-
 zhihu.exe为抓取知乎问题下的回答，包括图片
 ```
 
