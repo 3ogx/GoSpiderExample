@@ -75,7 +75,7 @@ taobao.exe -config=taobao.csv
 
 [taobaoscrapy淘宝天猫搜索框商品千里寻踪待做](taobaoscrapy/README.md),重构[Python版本](https://github.com/hunterhug/taobaoscrapy)可选抓取图片并保存信息到csv，还没写。
 
-### 4. 分布式煎蛋文章助手
+### 4. 分布式煎蛋文章助手(已经移动到jiandan项目)
 
 [jiandan煎蛋项目爬文章](jiandan/README.md)
 
@@ -161,4 +161,4 @@ zhihu.exe为抓取知乎问题下的回答，包括图片
 支付宝
 ![支付宝](https://raw.githubusercontent.com/hunterhug/hunterhug.github.io/master/static/jpg/ali.png)
 
-如果你需要定制版爬虫小工具，欢迎写好需求后，联系我！按开发时间收费(按天数/如程序员基本工资为每天300，则收取300)
+如果你需要定制版爬虫小工具，欢迎写好需求后，联系我！按开发时间收费.
