@@ -75,7 +75,7 @@ taobao.exe -config=taobao.csv
 
 [taobaoscrapy淘宝天猫搜索框商品千里寻踪待做](taobaoscrapy/README.md),重构[Python版本](https://github.com/hunterhug/taobaoscrapy)可选抓取图片并保存信息到csv，还没写。
 
-### 4. 分布式煎蛋文章助手(已经移动到jiandan项目)
+### 4. 分布式煎蛋文章助手(已经移动到[jiandan](https://github.com/hunterhug/jiandan)项目)
 
 [jiandan煎蛋项目爬文章](jiandan/README.md)
 
@@ -96,9 +96,7 @@ taobao.exe -config=taobao.csv
 
 [jiandan煎蛋项目爬图片](jiandanmeizi/README.md)，啥Redis都不用，准备好网速就行！
 
-### 6. 知乎小助手(已经移动到zhihuxx项目)
-
-[zhihu知乎系列爬虫](https://github.com/hunterhug/zhihuxx)啥啥都有。
+### 6. 知乎小助手(已经移动到[zhihuxx项目](https://github.com/hunterhug/zhihuxx))
 
 示例 [防盗链版本HTML](http://www.lenggirl.com/zhihu/28467579-html/1.html)
 
